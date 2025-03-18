@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        p.description {
+            font-size: 14px;
+            color: #666;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .back-button {
+            background-color: #ccc;
+            color: black;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .back-button:hover {
+            background-color: #bbb;
+        }
+        .note {
+            font-size: 12px;
+            color: #777;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Book an Appointment</h2>
+        <p class="description">Please fill in the details below to schedule a consultation.</p>
+        
+        <form id="appointmentForm">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="text" name="phone" placeholder="Your Phone Number" required>
+            <input type="date" name="date" required>
+            <textarea name="reason" placeholder="Reason for Appointment" required></textarea>
+            <button type="submit">Book Appointment</button>
+        </form>
+
+        <button class="back-button" onclick="goBack()">← Back</button>
+
+        <p class="note">*Note: As a CA Article, I can provide guidance and support on various accounting, taxation, and compliance matters. However, I cannot sign financial statements, audit reports, or other official documents.</p>
+    </div>
+
+    <script>
+        document.getElementById("appointmentForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            var formData = {
+                name: this.name.value,
+                email: this.email.value,
+                phone: this.phone.value,
+                date: this.date.value,
+                reason: this.reason.value
+            };
+
+            fetch("https://script.google.com/macros/s/AKfycbzBQ8xOfrP_ns7U8-3GML10XKJyv6beafY1nuAPhcmujoBjckYLnZurvz5cc5J3Dswl5w/exec", {
+                method: "POST",
+                body: JSON.stringify(formData),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response => response.json())  // Parse JSON response
+            .then(data => {
+                if (data.status === "success") {
+                    alert("Appointment booked successfully!");
+                    document.getElementById("appointmentForm").reset();
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Something went wrong. Please try again.");
+            });
+        });
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+</body>
+</html>
